@@ -1,11 +1,32 @@
 import graphene
+from graphene_django import DjangoObjectType
+#como estamos dentro de la carpeta cookbook, pero los modelos estan en la carpetea ingredients
+#necesitamos regresar un nivel de carpete por eso agregamos el ".."  al path actual
+import sys
+sys.path.append("..")
+from ingredients.models import Category, Ingredient
 
-import ingredients.schema
+class CategoryType(DjangoObjectType):
+    class Meta:
+        model = Category
+        fields = ("id", "name", "ingredients")
 
+class IngredientType(DjangoObjectType):
+    class Meta:
+        model = Ingredient
+        fields = ("id", "name", "notes", "category")
 
-class Query(ingredients.schema.Query, graphene.ObjectType):
-    # Esta clase heredara de multiples consultas
-    # segun vayamos agregando aplicaciones a nuestro proyecto
-    pass
+class Query(graphene.ObjectType):
+    all_ingredients = graphene.List(IngredientType)
+    category_by_name = graphene.Field(CategoryType, name=graphene.String(required=True))
 
+    def resolve_all_ingredients(root, info):
+        # We can easily optimize query count in the resolve method
+        return Ingredient.objects.select_related("category").all()
+
+    def resolve_category_by_name(root, info, name):
+        try:
+            return Category.objects.get(name=name)
+        except Category.DoesNotExist:
+            return None
 schema = graphene.Schema(query=Query)
