@@ -1,13 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Ingredient from '@/components/ingredient'
+
+import AddMenu from '@/components/AddMenu'
 
 Vue.use(VueRouter)
 
+
 const routes = [{
-    path: '/ingredientes/lista',
-    name: 'ingredient',
-    component: Ingredient
+    path: '/Menu/add',
+    name: 'addMenu',
+    component: AddMenu
 }, ]
 
 const router = new VueRouter({

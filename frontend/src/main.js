@@ -4,6 +4,7 @@ import router from './router'
 import { createProvider } from './vue-apollo'
 
 Vue.config.productionTip = false
+import "bootstrap/dist/css/bootstrap.min.css"
 
 new Vue({
     router,
