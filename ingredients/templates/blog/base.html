@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Blog proyecto Julio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <!-- Bulma Version 0.9.0-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/15181efa86.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+</head>
+
+<body>
+    <section class="hero is-danger">
+        <div class="hero-body">
+            <div class="container content">
+                <h1 class="title">Universidad <em>Mesoamericana</em> Quetzaltenango</h1>
+                <h3 class="subtitle">
+                    Vamos un paso adelante
+                </h3>
+                {% if user.is_authenticated %}
+                <div>
+                    <a href="{% url 'post_new' %}" class="button is-white is-medium is-inverted">nuevo&ensp;<i class="fas fa-plus"></i></a>
+                    <a href="{% url 'post_draft_list' %}" class="button is-white is-medium is-inverted">Borrador&ensp;<i class="fab fa-firstdraft"></i></a>
+
+                </div><br>
+
+                <a href="{% url 'post_draft_list' %}" class="top-menu"><span class="glyphicon glyphicon-edit"></span></a>
+                <p class="top-menu">Bienvenido {{ user.username }} <small><a href="{% url 'logout' %}" class="button is-white is-medium is-inverted" style="color: bisque;">Cerrar sesion&ensp;<i class="fas fa-hiking"></i></a></small></p>
+                {% else %}
+                <a href="{% url 'login' %}" class="button is-white is-medium is-inverted">Iniciar sesion&ensp;<i class="fas fa-user"></i></a> {% endif %}
+                <a href="/" class="button is-white is-medium is-inverted">Home&ensp;<i class="fas fa-home"></i></a>
+
+                <h2 class="subtitle">Ptercer parcial <br>Menu</h2>
+            </div>
+
+        </div>
+    </section>
+    <div class="content container">
+        <div class="row">
+            <div class="col-md-8">
+                {% block content %} {% endblock %}
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<footer class="footer">
+    <div class="content has-text-centered">
+        <h1 class="title is-size-4">Datos personales</h1>
+        <p class="is-size-5 subtitle">
+            Nombre: Julio Isabel Vela Flores
+        </p>
+        <p class="is-size-5 subtitle">
+            Carné: 201808024
+        </p>
+        <p class="is-size-5 subtitle">
+            Carrera:Ingenieria en sistemas
+        </p>
+    </div>
+</footer>
+
+</body>
+
+</html>

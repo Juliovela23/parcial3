@@ -1,0 +1,28 @@
+{% extends 'blog/base.html' %} {% block content %}
+<div class="post">
+    {% if post.published_date %}
+    <div class="date">
+        {{ post.published_date }}
+    </div>
+    {% else %}
+    <div class="card">
+        <header class="card-header">
+            <p class="card-header-title">
+                <a href="{% url 'post_detail' pk=post.pk %}">{{ post.name }}</a>
+            </p>
+        </header>
+        <div class="card-content">
+            <div class="content">
+                <p>{{ post.notes|linebreaksbr }}</p>
+            </div>
+        </div>
+        <footer class="card-footer">
+            <a href="{% url 'post_publish' pk=post.pk %}" class="card-footer-item">publicar</a>
+            <a href="{% url 'post_edit' pk=post.pk %}" class="card-footer-item">Editar</a>
+            <a href="{% url 'post_remove' pk=post.pk %}" class="card-footer-item">Eliminar</a>
+        </footer>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}

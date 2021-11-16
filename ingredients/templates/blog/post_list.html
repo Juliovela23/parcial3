@@ -1,0 +1,25 @@
+{% extends 'blog/base.html' %} {% block content %} {% for post in posts %}
+<div class="post">
+    <div class="card">
+        <header class="card-header">
+            <p class="card-header-title">
+                <a href="{% url 'post_detail' pk=post.pk %}">{{ post.name }}</a>
+            </p>
+        </header>
+        <div class="card-content">
+            <div class="content">
+                <p>{{ post.notes|linebreaksbr }}</p>
+                <br>
+
+            </div>
+        </div>
+        <footer class="card-footer">
+            <a href="{% url 'post_edit' pk=post.pk %}" class="card-footer-item">Editar</a>
+            <a href="{% url 'post_remove' pk=post.pk %}" class="card-footer-item">Eliminar</a>
+        </footer>
+    </div>
+
+</div>
+
+
+{% endfor %} {% endblock %}
